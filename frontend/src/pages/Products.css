@@ -1,0 +1,155 @@
+.products-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 28px;
+    align-items: start;
+    padding-top: 32px;
+}
+
+.filter-sidebar {
+    padding: 24px;
+    position: sticky;
+    top: 90px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.sidebar-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.clear-filters-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--danger);
+    transition: var(--transition);
+}
+
+.clear-filters-btn:hover {
+    opacity: 0.75;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.search-input-wrap {
+    position: relative;
+}
+
+.search-input-wrap .form-input {
+    padding-left: 38px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.price-inputs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.price-inputs span {
+    color: var(--text-muted);
+}
+
+.products-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.toolbar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-toggle-btn {
+    display: none;
+}
+
+.products-grid-main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.no-products {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-secondary);
+}
+
+.no-products span {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.no-products p {
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+    .products-grid-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .products-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 300px;
+        z-index: 1100;
+        overflow-y: auto;
+        border-radius: 0;
+        transition: left 0.3s ease;
+    }
+
+    .filter-sidebar.open {
+        left: 0;
+    }
+
+    .filter-toggle-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid-main {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import cors from "cors";
 import productRoutes from "./src/product/routes/product.routes.js";
 import {
   errorHandlerMiddleware,
@@ -14,6 +15,10 @@ const configPath = path.resolve("backend", "config", "uat.env");
 dotenv.config({ path: configPath });
 
 const app = express();
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 

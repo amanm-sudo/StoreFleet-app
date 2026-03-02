@@ -30,7 +30,55 @@ export const addNewProduct = async (req, res, next) => {
 };
 
 export const getAllProducts = async (req, res, next) => {
-  // Implement the functionality for search, filter and pagination this function.
+  try {
+    const resultPerPage = 8;
+    const totalProductCount = await getTotalCountsOfProduct();
+    const page = Number(req.query.page) || 1;
+
+    // Build query object
+    let queryObj = {};
+
+    // Search by keyword using regex on name field
+    if (req.query.keyword) {
+      queryObj.name = {
+        $regex: req.query.keyword,
+        $options: "i",
+      };
+    }
+
+    // Filter by category
+    if (req.query.category) {
+      queryObj.category = req.query.category;
+    }
+
+    // Filter by price range
+    if (req.query.minPrice || req.query.maxPrice) {
+      queryObj.price = {};
+      if (req.query.minPrice) {
+        queryObj.price.$gte = Number(req.query.minPrice);
+      }
+      if (req.query.maxPrice) {
+        queryObj.price.$lte = Number(req.query.maxPrice);
+      }
+    }
+
+    const skip = resultPerPage * (page - 1);
+    const products = await ProductModel.find(queryObj)
+      .limit(resultPerPage)
+      .skip(skip);
+
+    const filteredProductsCount = await ProductModel.countDocuments(queryObj);
+
+    res.status(200).json({
+      success: true,
+      products,
+      totalProductCount,
+      resultPerPage,
+      filteredProductsCount,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(500, error));
+  }
 };
 
 export const updateProduct = async (req, res, next) => {
@@ -152,7 +200,26 @@ export const deleteReview = async (req, res, next) => {
     }
 
     const reviewToBeDeleted = reviews[isReviewExistIndex];
+
+    // Restrict users to deleting only their own reviews
+    if (reviewToBeDeleted.user.toString() !== req.user._id.toString()) {
+      return next(
+        new ErrorHandler(403, "you can't delete other user's review")
+      );
+    }
+
     reviews.splice(isReviewExistIndex, 1);
+
+    // Update product rating after review deletion
+    let avgRating = 0;
+    if (reviews.length > 0) {
+      reviews.forEach((rev) => {
+        avgRating += rev.rating;
+      });
+      product.rating = avgRating / reviews.length;
+    } else {
+      product.rating = 0;
+    }
 
     await product.save({ validateBeforeSave: false });
     res.status(200).json({
