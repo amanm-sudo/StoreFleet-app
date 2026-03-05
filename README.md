@@ -96,7 +96,7 @@ cd frontend && npm install
 
 ### 4. Start the servers
 
-**Terminal 1 — Backend** (port 3000):
+**Terminal 1 — Backend** (port 4000):
 ```bash
 npm run dev
 ```
@@ -116,7 +116,7 @@ Copy `.env.example` to `backend/config/uat.env` and fill in:
 
 | Variable | Description |
 |----------|-------------|
-| `PORT` | Backend server port (default: `3000`) |
+| `PORT` | Backend server port (default: `4000`) |
 | `mongoURI` | MongoDB connection string |
 | `JWT_Secret` | Secret key for JWT signing |
 | `JWT_Expire` | JWT expiry (e.g. `1d`) |
@@ -152,7 +152,7 @@ MoreNewApp/
 │   │   ├── redux/           ← store + 4 slices (user/product/cart/order)
 │   │   ├── App.jsx          ← routes + protected routes
 │   │   └── main.jsx
-│   └── vite.config.js       ← proxy: /api → localhost:3000
+│   └── vite.config.js       ← proxy: /api → localhost:4000
 │
 ├── .env.example             ← copy to backend/config/uat.env
 ├── .gitignore

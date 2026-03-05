@@ -3,10 +3,37 @@ import axios from 'axios'
 
 export const fetchAllProducts = createAsyncThunk('product/fetchAll', async (params = {}, { rejectWithValue }) => {
     try {
-        const { keyword = '', category = '', minPrice = '', maxPrice = '', page = 1 } = params
-        const query = new URLSearchParams({ keyword, category, minPrice, maxPrice, page }).toString()
-        const res = await axios.get(`/api/storefleet/product/products?${query}`)
-        return res.data
+        const { keyword = '', category = '', page = 1 } = params
+        const limit = 8
+        const skip = (page - 1) * limit
+
+        let url = 'https://dummyjson.com/products'
+        if (keyword) {
+            url = `https://dummyjson.com/products/search?q=${keyword}&limit=${limit}&skip=${skip}`
+        } else if (category) {
+            url = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`
+        } else {
+            url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+        }
+
+        const res = await axios.get(url)
+
+        // Map dummyjson data to match frontend expectations
+        const mappedProducts = res.data.products.map(p => ({
+            ...p,
+            _id: p.id.toString(),
+            name: p.title,
+            images: p.images.map(url => ({ url })),
+            // dummyjson has reviews in some products, let's ensure it's an array
+            reviews: p.reviews || []
+        }))
+
+        return {
+            products: mappedProducts,
+            totalProductCount: res.data.total,
+            filteredProductsCount: res.data.total,
+            resultPerPage: limit
+        }
     } catch (err) {
         return rejectWithValue(err.response?.data?.message || err.message)
     }
@@ -14,8 +41,26 @@ export const fetchAllProducts = createAsyncThunk('product/fetchAll', async (para
 
 export const fetchProductDetails = createAsyncThunk('product/fetchDetails', async (id, { rejectWithValue }) => {
     try {
-        const res = await axios.get(`/api/storefleet/product/products/${id}`)
-        return res.data
+        const res = await axios.get(`https://dummyjson.com/products/${id}`)
+
+        // Map dummyjson data to match frontend expectations
+        const product = res.data
+        const mappedProduct = {
+            ...product,
+            _id: product.id.toString(),
+            name: product.title,
+            images: product.images.map(url => ({ url })),
+            reviews: product.reviews?.map((r, i) => ({
+                ...r,
+                _id: `rev-${i}`,
+                name: r.reviewerName,
+                user: `user-${r.reviewerEmail}`,
+                comment: r.comment,
+                rating: r.rating
+            })) || []
+        }
+
+        return { productDetails: mappedProduct }
     } catch (err) {
         return rejectWithValue(err.response?.data?.message || err.message)
     }

@@ -7,14 +7,14 @@ import { FiArrowRight, FiShoppingBag, FiTruck, FiShield } from 'react-icons/fi'
 import './Home.css'
 
 const categories = [
-    { name: 'Electronics', emoji: '💻' },
-    { name: 'Mobile', emoji: '📱' },
-    { name: 'Clothing', emoji: '👗' },
-    { name: 'Shoes', emoji: '👟' },
-    { name: 'Books & Media', emoji: '📚' },
-    { name: 'Jewelry', emoji: '💎' },
-    { name: 'Sports & Outdoors', emoji: '⚽' },
-    { name: 'Home & Garden', emoji: '🏡' },
+    { name: 'Electronics', emoji: '💻', slug: 'laptops' },
+    { name: 'Mobile', emoji: '📱', slug: 'smartphones' },
+    { name: 'Clothing', emoji: '👗', slug: 'mens-shirts' },
+    { name: 'Shoes', emoji: '👟', slug: 'mens-shoes' },
+    { name: 'Groceries', emoji: '🛒', slug: 'groceries' },
+    { name: 'Jewelry', emoji: '💎', slug: 'womens-jewellery' },
+    { name: 'Sports', emoji: '⚽', slug: 'sports-accessories' },
+    { name: 'Home Decoration', emoji: '🏡', slug: 'home-decoration' },
 ]
 
 export default function Home() {
@@ -82,7 +82,7 @@ export default function Home() {
                     <div className="categories-grid">
                         {categories.map(cat => (
                             <Link
-                                to={`/products?category=${encodeURIComponent(cat.name)}`}
+                                to={`/products?category=${encodeURIComponent(cat.slug)}`}
                                 className="category-card glass-card"
                                 key={cat.name}
                                 id={`cat-${cat.name.replace(/\s+/g, '-').toLowerCase()}`}

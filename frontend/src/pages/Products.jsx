@@ -7,11 +7,30 @@ import { FiSearch, FiFilter, FiX } from 'react-icons/fi'
 import './Products.css'
 
 const CATEGORIES = [
-    'Mobile', 'Electronics', 'Clothing', 'Home & Garden', 'Automotive',
-    'Health & Beauty', 'Sports & Outdoors', 'Toys & Games', 'Books & Media',
-    'Jewelry', 'Food & Grocery', 'Furniture', 'Shoes', 'Pet Supplies',
-    'Office Supplies', 'Baby & Kids', 'Art & Collectibles', 'Travel & Luggage',
-    'Music Instruments', 'Electrical Appliances', 'Handmade Crafts',
+    { slug: 'beauty', name: 'Beauty' },
+    { slug: 'fragrances', name: 'Fragrances' },
+    { slug: 'furniture', name: 'Furniture' },
+    { slug: 'groceries', name: 'Groceries' },
+    { slug: 'home-decoration', name: 'Home Decoration' },
+    { slug: 'kitchen-accessories', name: 'Kitchen Accessories' },
+    { slug: 'laptops', name: 'Laptops' },
+    { slug: 'mens-shirts', name: 'Mens Shirts' },
+    { slug: 'mens-shoes', name: 'Mens Shoes' },
+    { slug: 'mens-watches', name: 'Mens Watches' },
+    { slug: 'mobile-accessories', name: 'Mobile Accessories' },
+    { slug: 'motorcycle', name: 'Motorcycle' },
+    { slug: 'skin-care', name: 'Skin Care' },
+    { slug: 'smartphones', name: 'Smartphones' },
+    { slug: 'sports-accessories', name: 'Sports Accessories' },
+    { slug: 'sunglasses', name: 'Sunglasses' },
+    { slug: 'tablets', name: 'Tablets' },
+    { slug: 'tops', name: 'Tops' },
+    { slug: 'vehicle', name: 'Vehicle' },
+    { slug: 'womens-bags', name: 'Womens Bags' },
+    { slug: 'womens-dresses', name: 'Womens Dresses' },
+    { slug: 'womens-jewellery', name: 'Womens Jewellery' },
+    { slug: 'womens-shoes', name: 'Womens Shoes' },
+    { slug: 'womens-watches', name: 'Womens Watches' }
 ]
 
 export default function Products() {
@@ -80,7 +99,7 @@ export default function Products() {
                                 onChange={e => setCategory(e.target.value)}
                             >
                                 <option value="">All Categories</option>
-                                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                                {CATEGORIES.map(c => <option key={c.slug} value={c.slug}>{c.name}</option>)}
                             </select>
                         </div>
 
