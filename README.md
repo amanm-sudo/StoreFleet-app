@@ -2,7 +2,7 @@
 
 # ⚡ StoreFleet
 
-### A full-stack e-commerce platform built for the Coding Ninjas Capstone Project
+### A modern, full-stack e-commerce platform
 
 [![Node](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
@@ -26,18 +26,14 @@
 
 ## 🚀 Features
 
-### Backend (10 Capstone Objectives — 500pts)
-| # | Objective | Points |
-|---|-----------|--------|
-| 1 | Welcome Email with Nodemailer | 50 |
-| 2 | Duplicate Key Error Handling | 50 |
-| 3 | Password Hashing with bcrypt (Mongoose pre-hook) | 50 |
-| 4 | Forget Password & Reset Password via email | 50 |
-| 5 | Fix Admin Route Security Bug | 50 |
-| 6 | Admin Update User Roles (controller + repo + route) | 50 |
-| 7 | Product Search, Filter & Pagination | 50 |
-| 8 | Fix Review Delete + Recalculate Rating | 50 |
-| 9 | Order Placement (controller + repo) | 50 |
+### Backend Features
+- 📧 **Communication**: Welcome emails and password reset flows with Nodemailer
+- 🔐 **Security**: Secure password hashing (bcrypt), JWT-based auth, and protected Admin routes
+- 🛡️ **Reliability**: Built-in duplicate key and validation error handling
+- 🔍 **Discoverability**: Robust product search, filtering, and pagination APIs
+- ⭐ **User Engagement**: Product reviews setup with dynamic rating recalculation
+- 🛍️ **E-Commerce**: Complete order placement lifecycle
+- 👥 **Access Control**: Integrated user role management (Admin/User)
 
 ### Frontend
 - 🏠 Home page — animated hero, feature cards, category grid, featured products
